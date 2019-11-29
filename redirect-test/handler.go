@@ -1,6 +1,7 @@
 package function
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -10,6 +11,10 @@ func Handle(w http.ResponseWriter, r *http.Request) {
 	if redirect {
 		http.Redirect(w, r, r.FormValue("redirect"), http.StatusTemporaryRedirect)
 		return
+	}
+
+	for k, v := range r.Header {
+		fmt.Printf("k: %s, v: %s\n", k, v)
 	}
 
 	w.WriteHeader(http.StatusOK)
